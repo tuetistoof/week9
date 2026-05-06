@@ -21,11 +21,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # 1. Chạy lệnh đè thẳng vào đường dẫn chính xác của file pom.xml
+      # SỬA LẠI: Chui thẳng vào thư mục chứa pom.xml rồi mới chạy lệnh để Surefire tìm đúng class test
       - name: Build and Run Specific Test with Maven
-        run: mvn -f wk9/9.3/pom.xml clean package -Dtest=AppTest
+        run: |
+          cd wk9/9.3
+          mvn clean package -Dtest=AppTest
 
-      # 2. Upload thư mục target của bài 9.3 làm Artifact
+      # Upload toàn bộ thư mục target của bài 9.3 lên Artifacts
       - name: Upload Build Artifact (.jar)
         uses: actions/upload-artifact@v4
         with:
