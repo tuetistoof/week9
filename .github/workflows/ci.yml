@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main", "master" ]
     paths:
-      - '9.3/**' # Chỉ kích hoạt robot khi bạn sửa code trong thư mục 9.3
+      - '9.3/**'
   pull_request:
     branches: [ "main", "master" ]
     paths:
@@ -17,23 +17,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-          
-          # Thay đổi tên hiển thị cho đúng và đổi cấu hình java-version thành 25
-                - name: Set up JDK 25
-                uses: actions/setup-java@v4
-                with:
-                  java-version: '25' # Đổi từ '17' thành '25' để khớp với pom.xml
-                  distribution: 'temurin'
-                  cache: 'maven'
 
-      # Robot đi vào thư mục 9.3 để gõ lệnh test và build
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: 'maven'
+
       - name: Build with Maven (Checkstyle, Test and Package)
         working-directory: ./9.3
         run: mvn clean package
-
-      # Cất file .jar sinh ra từ thư mục 9.3 vào mục Artifacts
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: bank-system-jar
-          path: 9.3/target/*.jar
