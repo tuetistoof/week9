@@ -17,13 +17,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'maven'
+          
+          # Thay đổi tên hiển thị cho đúng và đổi cấu hình java-version thành 25
+                - name: Set up JDK 25
+                uses: actions/setup-java@v4
+                with:
+                  java-version: '25' # Đổi từ '17' thành '25' để khớp với pom.xml
+                  distribution: 'temurin'
+                  cache: 'maven'
 
       # Robot đi vào thư mục 9.3 để gõ lệnh test và build
       - name: Build with Maven (Checkstyle, Test and Package)
